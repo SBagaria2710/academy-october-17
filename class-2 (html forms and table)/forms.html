@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Forms</title>
+  </head>
+  <body>
+    <h2>About Me - Form</h2>
+    <form>
+      <label>Name:</label>
+      <input type="text" placeholder="John Doe" />
+
+      <br />
+      <br />
+
+      <label>Contact:</label>
+      <input type="number" placeholder="+XX-XXXXXXXXXX" />
+
+      <br />
+      <br />
+
+      <label>Email:</label>
+      <input type="email" placeholder="john.doe@hooli.com" />
+
+      <br />
+      <br />
+
+      <label>Address:</label>
+      <textarea required rows="5" cols="15"></textarea>
+
+      <br />
+      <br />
+
+      <div>
+        <label>Male:</label>
+        <input type="radio" value="male" name="gender" />
+        <label>Female:</label>
+        <input type="radio" value="female" name="gender" />
+        <label>Other:</label>
+        <input type="radio" value="other" name="gender" />
+      </div>
+
+      <br />
+      <br />
+
+      <label>Food Preference:</label>
+      <input type="checkbox" value="veg" />Veg
+      <input type="checkbox" value="non-veg" />Non-Veg
+
+      <br />
+      <br />
+
+      <label>Age:</label>
+      <input
+        type="number"
+        autocomplete="off"
+        min="1"
+        max="100"
+        placeholder="XX"
+        required
+      />
+
+      <br />
+      <br />
+
+      <label>City:</label>
+      <select>
+        <!--Drop Down-->
+        <option value=""></option>
+        <option value="delhi">Delhi</option>
+        <option value="bangalore" selected>Bangalore</option>
+        <option value="mumbai">Mumbai</option>
+        <option value="chandrapur">Chandrapur</option>
+      </select>
+
+      <br />
+      <br />
+
+      <label>Profile Photo:</label>
+      <input required type="file" accept=".png, .jpg, .jpeg" />
+
+      <br />
+      <br />
+
+      <label>DOB:</label>
+      <input type="date" min="2024-01-01" max="2024-12-31" />
+
+      <br />
+      <br />
+
+      <label>Eye Color:</label>
+      <input type="color" />
+
+      <br />
+      <br />
+
+      <label>Instagram Password:</label>
+      <input type="password" />
+
+      <br />
+      <br />
+
+      <input type="submit" />
+    </form>
+  </body>
+</html>

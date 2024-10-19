@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Tables</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Employee Lists</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>FullName</th>
+          <th>Position</th>
+          <th>Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.</td>
+          <td>Satya Nadella</td>
+          <td>CEO Microsoft</td>
+          <td>$1000</td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>Tim Cook</td>
+          <td>CEO Apple</td>
+          <td>$1500</td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td>Sundar Pichai</td>
+          <td>CEO Google</td>
+          <td>$5000</td>
+        </tr>
+        <tr>
+          <td>4.</td>
+          <td>Mark Zuckerberg</td>
+          <td>Founder Meta</td>
+          <td>$2500</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>No.</th>
+          <th>FullName</th>
+          <th>Position</th>
+          <th>Salary</th>
+        </tr>
+      </tfoot>
+    </table>
+
+    <hr />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>After discount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hard Disk</td>
+          <td rowspan="2">1</td>
+          <td>500</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td>CD Drive</td>
+          <td>200</td>
+          <td>150</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Total Amount</td>
+          <td>550</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>
