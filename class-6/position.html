@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Position</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .grand-container {
+        padding: 25px;
+        margin: 25px;
+        border: 2px solid #000;
+        background-color: lightcoral;
+      }
+
+      .container {
+        padding: 10px;
+        margin: 5px;
+        border: 2px solid #000;
+        background-color: lightblue;
+        height: 1550px;
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #000;
+        border-radius: 4px;
+        margin-bottom: 5px;
+      }
+
+      .red {
+        background-color: red;
+        position: relative;
+        left: 20px;
+      }
+
+      .blue {
+        background-color: blue;
+        position: absolute;
+        left: 0;
+      }
+
+      .green {
+        background-color: green;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      .brown {
+        position: sticky;
+        top: 0;
+        background-color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grand-container">
+      <div class="container">
+        <div class="box red"></div>
+        <div class="box blue"></div>
+        <div class="box green"></div>
+        <div class="box brown"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grids</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        margin: 20px;
+        padding: 10px;
+        border: 2px solid #333;
+        height: 600px;
+
+        display: grid;
+        /* grid-template-columns: 1fr minmax(100px, 2fr) 1fr;
+        grid-template-rows: repeat(2, 100px); */
+        grid-template: repeat(5, 1fr) / repeat(4, 1fr);
+        /* row-gap: 10px;
+        column-gap: 10px; */
+        gap: 10px;
+      }
+
+      .item {
+        padding: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        border: 1px solid #333;
+        overflow: scroll;
+
+        background-color: lightblue;
+      }
+
+      .item-1 {
+        grid-row: span 3;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        background-color: lightcoral;
+      }
+
+      .item-2 {
+        grid-row: 4 / 6;
+        grid-column: 3 / 5;
+        background-color: lightblue;
+      }
+
+      .item-3 {
+        grid-row: 2 / 4;
+        grid-column-start: 4;
+        grid-column-end: 5;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item item-1">1</div>
+      <div class="item item-2">2</div>
+      <div class="item item-3">3</div>
+    </div>
+  </body>
+</html>
