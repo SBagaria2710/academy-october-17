@@ -17,32 +17,32 @@ const fs = require("fs");
 // Read File Sycnc (Non-Blocking)
 console.log("Start");
 
-// fs.readFile("./files/f1.txt", "utf-8", function (err, data) {
-//   if (err) {
-//     console.log("Error =>", err);
-//     return;
-//   }
+fs.readFile("./files/f1.txt", "utf-8", function (err, data) {
+  if (err) {
+    console.log("Error =>", err);
+    return;
+  }
 
-//   console.log(data);
-// });
+  console.log(data);
+});
 
-// fs.readFile("./files/f2.txt", "utf-8", function (err, data) {
-//   if (err) {
-//     console.log("Error =>", err);
-//     return;
-//   }
+fs.readFile("./files/f2.txt", "utf-8", function (err, data) {
+  if (err) {
+    console.log("Error =>", err);
+    return;
+  }
 
-//   console.log(data);
-// });
+  console.log(data);
+});
 
-// fs.readFile("./files/f3.txt", "utf-8", function (err, data) {
-//   if (err) {
-//     console.log("Error =>", err);
-//     return;
-//   }
+fs.readFile("./files/f3.txt", "utf-8", function (err, data) {
+  if (err) {
+    console.log("Error =>", err);
+    return;
+  }
 
-//   console.log(data);
-// });
+  console.log(data);
+});
 
 // F1 Read Operation
 fs.readFile("./files/f1.txt", "utf-8", function (err, data) {
