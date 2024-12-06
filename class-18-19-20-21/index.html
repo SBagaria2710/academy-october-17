@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- Tool Box -->
+    <nav class="toolbox-cont">
+      <!-- Color Boxes -->
+      <div class="toolbox-priority-cont">
+        <button class="all color">All</button>
+        <div class="lightpink color"></div>
+        <div class="lightblue color"></div>
+        <div class="lightgreen color"></div>
+        <div class="black color"></div>
+      </div>
+
+      <!-- Actions Buttons -->
+      <div class="action-btn-cont">
+        <button id="add-btn"><i class="fa-solid fa-plus"></i></button>
+        <div class="divider"></div>
+        <button id="remove-btn"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="main-cont">
+      <div class="ticket-cont">
+        <div class="ticket-color"></div>
+        <div class="ticket-id">#12345</div>
+        <div class="ticket-area">Dummy Ticket</div>
+        <div class="ticket-lock">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+      </div>
+
+      <div class="ticket-cont">
+        <div class="ticket-color"></div>
+        <div class="ticket-id">#23452</div>
+        <div class="task-area">Dummy Ticket</div>
+        <div class="ticket-lock">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+      </div>
+
+      <div class="ticket-cont">
+        <div class="ticket-color"></div>
+        <div class="ticket-id">#89789</div>
+        <div class="ticket-area">Dummy Ticket</div>
+        <div class="ticket-lock">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Task Container Modal -->
+    <div class="modal-cont">
+      <div class="task-container">
+        <textarea
+          name="task"
+          class="textArea-cont"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <div class="task-btn-cont">
+          <button>Close</button>
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="priority-task-cont">
+        <div class="lightpink priority-color"></div>
+        <div class="lightblue priority-color"></div>
+        <div class="lightgreen priority-color"></div>
+        <div class="black priority-color"></div>
+      </div>
+    </div>
+  </body>
+</html>
