@@ -12,6 +12,25 @@ const toolboxColors = document.querySelectorAll(".color");
 let ogTickets = [];
 let DEFAULT_COLOR = "lightpink";
 let activePriorityTaskColor = DEFAULT_COLOR;
+let activeToolboxColor = "all";
+
+function getFilteredTickets() {
+  if (activeToolboxColor === "all") {
+    return ogTickets;
+  }
+  return ogTickets.filter(({ color }) => color === activeToolboxColor);
+}
+
+function refreshMainContainer() {
+  mainCont.innerHTML = "";
+
+  const filteredTickets = getFilteredTickets();
+
+  filteredTickets.forEach((ticket) => {
+    const { id, color, task } = ticket;
+    createTicket({ ticketTask: task, ticketColor: color, ticketId: id });
+  });
+}
 
 function createTicket({ ticketTask, ticketColor, ticketId }) {
   let ticketCont = document.createElement("div");
@@ -28,16 +47,18 @@ function createTicket({ ticketTask, ticketColor, ticketId }) {
 
 function handleSubmit() {
   if (taskDetail.value && activePriorityTaskColor) {
-    createTicket({
-      ticketTask: taskDetail.value,
-      ticketColor: activePriorityTaskColor,
-      ticketId: shortid(),
+    ogTickets.push({
+      task: taskDetail.value,
+      color: activePriorityTaskColor,
+      id: shortid(),
     });
 
     closeModal();
     clearSelectedPriorityColor();
     taskDetail.value = "";
     activePriorityTaskColor = DEFAULT_COLOR;
+
+    refreshMainContainer();
   }
 }
 
@@ -54,6 +75,23 @@ function onPriorityColorClickInModal(event) {
   const elem = event.target;
   activePriorityTaskColor = elem.classList[0];
   elem.classList.add("active");
+}
+
+function clearSelectedToolboxColor() {
+  toolboxColors.forEach((elem) => {
+    if (elem.classList.contains("active")) {
+      elem.classList.remove("active");
+    }
+  });
+}
+
+function onClickToolboxColors(event) {
+  clearSelectedToolboxColor();
+  const elem = event.target;
+  activeToolboxColor = elem.classList[0];
+  elem.classList.add("active");
+
+  refreshMainContainer();
 }
 
 // Open/Close Modal
@@ -75,4 +113,7 @@ closeBtn.addEventListener("click", closeModal);
 submitBtn.addEventListener("click", handleSubmit);
 priorityTaskColors.forEach(function (elem) {
   elem.addEventListener("click", onPriorityColorClickInModal);
+});
+toolboxColors.forEach(function (elem) {
+  elem.addEventListener("click", onClickToolboxColors);
 });
