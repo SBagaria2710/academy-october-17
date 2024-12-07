@@ -12,6 +12,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script
+      src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <!-- Tool Box -->
@@ -34,34 +38,7 @@
     </nav>
 
     <!-- Main Section -->
-    <div class="main-cont">
-      <div class="ticket-cont">
-        <div class="ticket-color"></div>
-        <div class="ticket-id">#12345</div>
-        <div class="ticket-area">Dummy Ticket</div>
-        <div class="ticket-lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>
-      </div>
-
-      <div class="ticket-cont">
-        <div class="ticket-color"></div>
-        <div class="ticket-id">#23452</div>
-        <div class="task-area">Dummy Ticket</div>
-        <div class="ticket-lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>
-      </div>
-
-      <div class="ticket-cont">
-        <div class="ticket-color"></div>
-        <div class="ticket-id">#89789</div>
-        <div class="ticket-area">Dummy Ticket</div>
-        <div class="ticket-lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>
-      </div>
-    </div>
+    <div class="main-cont"></div>
 
     <!-- Task Container Modal -->
     <div class="modal-cont">
@@ -73,8 +50,8 @@
           rows="10"
         ></textarea>
         <div class="task-btn-cont">
-          <button>Close</button>
-          <button>Submit</button>
+          <button id="close-btn">Close</button>
+          <button id="submit-btn">Submit</button>
         </div>
       </div>
       <div class="priority-task-cont">
@@ -84,5 +61,6 @@
         <div class="black priority-color"></div>
       </div>
     </div>
+    <script src="./script.js"></script>
   </body>
 </html>

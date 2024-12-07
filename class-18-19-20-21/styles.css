@@ -124,7 +124,7 @@ body {
 .modal-cont {
   height: 50vh;
   width: 46vw;
-  display: flex;
+  display: none;
   background-color: lightsalmon;
   position: fixed;
   top: calc(50% - 25vh);
@@ -194,4 +194,8 @@ body {
 
 .priority-color:hover {
   border: 2px solid gold;
+}
+
+.active {
+  border: 2px solid blue;
 }
