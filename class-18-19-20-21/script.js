@@ -13,7 +13,7 @@ let ogTickets = [];
 let DEFAULT_COLOR = "lightpink";
 let activePriorityTaskColor = DEFAULT_COLOR;
 let activeToolboxColor = "all";
-
+const colors = ["lightpink", "lightblue", "lightgreen", "black"];
 function getFilteredTickets() {
   if (activeToolboxColor === "all") {
     return ogTickets;
@@ -35,7 +35,7 @@ function refreshMainContainer() {
 function createTicket({ ticketTask, ticketColor, ticketId }) {
   let ticketCont = document.createElement("div");
   ticketCont.setAttribute("class", "ticket-cont");
-  ticketCont.innerHTML = `<div class=${ticketColor}></div>
+  ticketCont.innerHTML = `<div class="ticket-color ${ticketColor}"></div>
         <div class="ticket-id">#${ticketId}</div>
         <div class="ticket-area">${ticketTask}</div>
         <div class="ticket-lock">
@@ -43,6 +43,54 @@ function createTicket({ ticketTask, ticketColor, ticketId }) {
         </div>`;
 
   mainCont.append(ticketCont);
+
+  handleLock(ticketId, ticketCont);
+  handleColor(ticketId, ticketCont);
+}
+
+function handleLock(ticketId, ticketElem) {
+  const lockClass = "fa-lock";
+  const unlockClass = "fa-lock-open";
+  const ticketLockElem = ticketElem.querySelector(".ticket-lock i");
+  const ticketTaskArea = ticketElem.querySelector(".ticket-area");
+  ticketLockElem.addEventListener("click", (event) => {
+    if (ticketLockElem.classList.contains(lockClass)) {
+      ticketLockElem.classList.remove(lockClass);
+      ticketLockElem.classList.add(unlockClass);
+
+      ticketTaskArea.setAttribute("contenteditable", "true");
+    } else {
+      ticketLockElem.classList.remove(unlockClass);
+      ticketLockElem.classList.add(lockClass);
+
+      ticketTaskArea.setAttribute("contenteditable", "false");
+      let index = ogTickets.findIndex((ticket) => {
+        return ticket.id === ticketId;
+      });
+
+      ogTickets[index].task = ticketTaskArea.textContent;
+    }
+  });
+}
+
+function handleColor(ticketId, ticketElem) {
+  const ticketColorElem = ticketElem.querySelector(".ticket-color");
+  ticketColorElem.addEventListener("click", function () {
+    const currentColor = ticketColorElem.classList[1];
+    let currentColorIdx = colors.findIndex((color) => color === currentColor);
+
+    const newColorIdx = ++currentColorIdx % colors.length;
+    const newColor = colors[newColorIdx];
+
+    ticketColorElem.classList.remove(currentColor);
+    ticketColorElem.classList.add(newColor);
+
+    let index = ogTickets.findIndex((ticket) => {
+      return ticket.id === ticketId;
+    });
+
+    ogTickets[index].color = newColor;
+  });
 }
 
 function handleSubmit() {

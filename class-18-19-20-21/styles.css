@@ -107,11 +107,7 @@ body {
   background-color: yellow;
 }
 
-.ticket-color {
-  background-color: black;
-}
-
-.task-area {
+.ticket-area {
   padding: 0.875rem 0.25rem;
 }
 
