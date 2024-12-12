@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Storage</title>
+  </head>
+  <body>
+    <script>
+      // SAVE (Set)
+      localStorage.setItem("scaler", "academy");
+      localStorage.setItem("ogTickets", JSON.stringify({ name: "Shashwat" }));
+
+      // ACCESS (Get)
+      const value = localStorage.getItem("ogTickets");
+      console.log(JSON.parse(value));
+
+      // DELETE
+      localStorage.removeItem("ogTickets");
+      localStorage.clear();
+    </script>
+  </body>
+</html>

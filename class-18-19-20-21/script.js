@@ -17,6 +17,12 @@ let activeToolboxColor = "all";
 const colors = ["lightpink", "lightblue", "lightgreen", "black"];
 let deleteMode = false;
 
+const ticketFromLS = localStorage.getItem("ogTickets");
+if (ticketFromLS) {
+  ogTickets = JSON.parse(ticketFromLS);
+  refreshMainContainer();
+}
+
 function getFilteredTickets() {
   if (activeToolboxColor === "all") {
     return ogTickets;
@@ -73,6 +79,7 @@ function handleLock(ticketId, ticketElem) {
       });
 
       ogTickets[index].task = ticketTaskArea.textContent;
+      updateLocalStorage();
     }
   });
 }
@@ -94,6 +101,7 @@ function handleColor(ticketId, ticketElem) {
     });
 
     ogTickets[index].color = newColor;
+    updateLocalStorage();
   });
 }
 
@@ -104,7 +112,7 @@ function handleDelete(ticketId, ticketElem) {
       ogTickets = ogTickets.filter((ticket) => {
         return ticket.id !== ticketId;
       });
-      console.log(ogTickets);
+      updateLocalStorage();
     } else {
       console.log("Ignore");
     }
@@ -124,6 +132,7 @@ function handleSubmit() {
     taskDetail.value = "";
     activePriorityTaskColor = DEFAULT_COLOR;
 
+    updateLocalStorage();
     refreshMainContainer();
   }
 }
@@ -184,6 +193,10 @@ function toggleDeleteMode() {
     alert("Delete Mode Deactivated");
     removeBtn.style.color = "white";
   }
+}
+
+function updateLocalStorage() {
+  localStorage.setItem("ogTickets", JSON.stringify(ogTickets));
 }
 
 addBtn.addEventListener("click", openModal);
