@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+}
+
+.stepper {
+  margin: 8px auto;
+}
+
+.controls button {
+  background-color: aqua;
+}
+
+#reset-button {
+  background-color: yellow;
+}
