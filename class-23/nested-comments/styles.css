@@ -1,0 +1,26 @@
+p {
+  margin: 0.25rem 0;
+}
+
+.comment {
+  margin-top: 2px;
+}
+
+.main-comment {
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: lightgreen;
+}
+
+.sub-comment-container {
+  margin-left: 20px;
+}
+
+.btn-holder button:first-of-type {
+  margin-right: 2px;
+}
+
+.comment-input-container input:first-of-type {
+  margin-block: 4px;
+}

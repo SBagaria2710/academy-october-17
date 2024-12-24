@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation</title>
+    <style>
+      table {
+        width: 100%;
+      }
+
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Event Delegation</h2>
+    <table id="myTable">
+      <tr>
+        <td>Red</td>
+        <td>Yellow</td>
+        <td>Blue</td>
+      </tr>
+    </table>
+
+    <script>
+      const body = document.querySelector("body");
+
+      body.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        if (clickedElement.nodeName === "TD") {
+          const color = clickedElement.textContent.toLowerCase();
+
+          if (color !== body.style.backgroundColor) {
+            body.style.backgroundColor = color;
+          } else {
+            body.style.backgroundColor = "";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
