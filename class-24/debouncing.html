@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debouncing</title>
+  </head>
+  <body>
+    <h2>Debouncing</h2>
+    <p>
+      This means you wait for a bit after your last action before you take your
+      turn.
+    </p>
+
+    <input id="inputField" type="text" />
+
+    <script>
+      let inputField = document.getElementById("inputField");
+
+      function debounce(fn, delay = 250) {
+        let timeoutId;
+        return function (event) {
+          // Resetting the timer
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(function () {
+            fn(event);
+          }, delay);
+        };
+      }
+
+      function fakeAPICall(event) {
+        const query = event.target.value;
+        console.log("Fake API Call for query: ", query);
+      }
+
+      let debouncedFn = debounce(fakeAPICall, 500);
+      inputField.addEventListener("keydown", debouncedFn);
+    </script>
+  </body>
+</html>

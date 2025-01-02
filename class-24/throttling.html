@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Throttling</title>
+    <style>
+      body,
+      html {
+        height: 3000px;
+      }
+
+      .status {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Throttling</h2>
+    <p>
+      It is like setting a timer and only taking action when the timer goes off,
+      no matter how much happen in between.
+    </p>
+
+    <div class="status">
+      Scroll Position: <span id="scrollPosition">0</span>
+    </div>
+
+    <script>
+      let lastScrollTime = 0;
+      let throttleTime = 500; // 1 second
+      let position = document.getElementById("scrollPosition");
+
+      function updateScrollPosition() {
+        let now = new Date().getTime();
+        if (now - lastScrollTime > throttleTime) {
+          position.textContent = Math.floor(window.scrollY);
+
+          console.log("Scrolled", now, lastScrollTime);
+
+          lastScrollTime = now;
+        } else {
+          console.log("Ignored", now, lastScrollTime);
+        }
+      }
+
+      window.addEventListener("scroll", updateScrollPosition);
+    </script>
+  </body>
+</html>
