@@ -24,10 +24,6 @@ function TestUseEffect() {
   useEffect(function () {
     // This will be called when the component mounts
     console.log("Mounted");
-
-    return function () {
-      // This will be called when the component unmounts
-    };
   }, []);
   /**
    * 1. [] - Will be called only during mounting phase
