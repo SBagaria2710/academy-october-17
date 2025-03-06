@@ -22,4 +22,16 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Pre-save hook
+productSchema.pre("save", function (next) {
+  console.log("PRE-SAVE:", this);
+  next();
+});
+
+// Post-save hook to log a message
+productSchema.post("save", function (doc, next) {
+  console.log("POST-SAVE:", this);
+  next();
+});
+
 module.exports = mongoose.model("product", productSchema);
