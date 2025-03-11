@@ -1,10 +1,44 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from "../../apicalls/users";
 
 function Login() {
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const onFinish = async (values) => {
+    try {
+      const res = await LoginUser(values);
+      const { message, data } = res;
+      if (res.success) {
+        messageApi.open({
+          type: "success",
+          content: message,
+        });
+        console.log(message);
+        localStorage.setItem("token", data);
+        navigate("/");
+      } else {
+        console.log(res);
+        const { message } = res?.response?.data || {};
+        messageApi.open({
+          type: "error",
+          content: message,
+        });
+        console.error(message);
+      }
+    } catch (err) {
+      messageApi.open({
+        type: "error",
+        content: err,
+      });
+    }
+  };
+
   return (
     <div>
+      {contextHolder}
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">
@@ -12,7 +46,7 @@ function Login() {
           </section>
 
           <section className="right-section">
-            <Form layout="vertical">
+            <Form layout="vertical" onFinish={onFinish}>
               <Form.Item
                 label="Email"
                 htmlFor="email"
