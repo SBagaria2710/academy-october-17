@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // Register a user
 router.post("/register", async (req, res) => {
@@ -48,6 +49,19 @@ router.post("/login", async (req, res) => {
       success: true,
       message: "You've successfully logged in!",
       data: token,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/get-current-user", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId).select("-password");
+    res.send({
+      success: true,
+      message: "User details fetched successfully!",
+      data: user,
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
