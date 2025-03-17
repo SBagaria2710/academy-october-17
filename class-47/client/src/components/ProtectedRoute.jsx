@@ -1,48 +1,119 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { GetCurrentUser } from "../apicalls/users";
+import { useNavigate } from "react-router-dom";
+import { message, Layout, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { HideLoading, ShowLoading } from "../redux/loaderSlice";
-import { SetUser } from "../redux/userSlice";
-import { Layout, Menu } from "antd";
+import { hideLoading, showLoading } from "../redux/loaderSlice";
 import { Header } from "antd/es/layout/layout";
+import {
+  HomeOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { setUser } from "../redux/userSlice";
 
-const ProtectedRoute = ({ children }) => {
-  const navigate = useNavigate();
+function ProtectedRoute({ children }) {
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { user, loader } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
-  const getValidUserDetails = async () => {
+  const navItems = [
+    {
+      label: "Home",
+      icon: <HomeOutlined />,
+    },
+
+    {
+      label: `${user ? user.name : ""}`,
+      icon: <UserOutlined />,
+      children: [
+        {
+          label: (
+            <span
+              onClick={() => {
+                if (user.role === "admin") {
+                  navigate("/admin");
+                } else if (user.role === "partner") {
+                  navigate("/partner");
+                } else {
+                  navigate("/profile");
+                }
+              }}
+            >
+              My Profile
+            </span>
+          ),
+          icon: <ProfileOutlined />,
+        },
+
+        {
+          label: (
+            <Link
+              to="/login"
+              onClick={() => {
+                localStorage.removeItem("token");
+              }}
+            >
+              Log Out
+            </Link>
+          ),
+          icon: <LogoutOutlined />,
+        },
+      ],
+    },
+  ];
+
+  const getValidUser = async () => {
     try {
-      dispatch(ShowLoading());
+      dispatch(showLoading());
       const response = await GetCurrentUser();
-      dispatch(HideLoading());
-      if (response.success) {
-        dispatch(SetUser(response.data));
-      } else {
-        dispatch(SetUser(null));
-        localStorage.removeItem("token");
-        navigate("/login");
-      }
-    } catch (err) {
-      dispatch(HideLoading());
-      dispatch(SetUser(null));
-      localStorage.removeItem("token");
-      navigate("/login");
-      console.log(err);
+      console.log(response);
+      dispatch(setUser(response.data));
+      dispatch(hideLoading());
+      // Hide Loader
+    } catch (error) {
+      dispatch(setUser(null));
+      message.error(error.message);
     }
   };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      getValidUserDetails();
+      getValidUser();
     } else {
       navigate("/login");
     }
   }, []);
 
-  return <div>{children}</div>;
-};
+  return (
+    user && (
+      <>
+        <Layout>
+          <Header
+            className="d-flex justify-content-between"
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 1,
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <h3 className="demo-logo text-white m-0" style={{ color: "white" }}>
+              Book My Show
+            </h3>
+            <Menu theme="dark" mode="horizontal" items={navItems} />
+          </Header>
+          <div style={{ padding: 24, minHeight: "100vh", background: "#fff" }}>
+            {children}
+          </div>
+        </Layout>
+      </>
+    )
+  );
+}
 
 export default ProtectedRoute;
