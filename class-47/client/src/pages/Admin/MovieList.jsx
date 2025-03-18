@@ -1,5 +1,10 @@
-import React from "react";
-import { Table } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Table } from "antd";
+import { useDispatch } from "react-redux";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import MovieForm from "./MovieForm";
+import { showLoading, hideLoading } from "../../redux/loaderSlice";
+import { getAllMovies } from "../../apicalls/movies";
 
 const movies = [
   {
@@ -28,6 +33,13 @@ const movies = [
 ];
 
 function MovieList() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [formType, setFormType] = useState("add");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+
   const tableHeadings = [
     {
       title: "Poster",
@@ -61,9 +73,47 @@ function MovieList() {
       title: "Actions",
     },
   ];
+
+  const getData = async () => {
+    dispatch(showLoading());
+    const response = await getAllMovies();
+    const allMovies = response.data;
+    setMovies(
+      allMovies.map(function (item) {
+        return { ...item, key: `movie_${item._id}` };
+      })
+    );
+    dispatch(hideLoading());
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
+      <div
+        style={{ display: "flex", justifyContent: "end", marginBottom: "8px" }}
+      >
+        <Button
+          onClick={() => {
+            setIsModalOpen(true);
+            setFormType("add");
+          }}
+        >
+          Add Movie
+        </Button>
+      </div>
       <Table dataSource={movies} columns={tableHeadings} />
+      {isModalOpen && (
+        <MovieForm
+          setIsModalOpen={setIsModalOpen}
+          selectedMovie={selectedMovie}
+          formType={formType}
+          setSelectedMovie={setSelectedMovie}
+          getData={getData}
+        />
+      )}
     </div>
   );
 }

@@ -14,4 +14,54 @@ router.post("/add-movie", async (req, res) => {
   }
 });
 
+// Get all the movies
+router.get("/get-all-movies", async (req, res) => {
+  try {
+    const allMovies = await Movie.find();
+    res.send({
+      success: true,
+      message: "All movies have been fetched!",
+      data: allMovies,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+// Update a movie
+router.put("/update-movie/:movieId", async (req, res) => {
+  try {
+    const movie = await Movie.findByIdAndUpdate(req.params.movieId, req.body);
+    res.send({
+      success: true,
+      message: "The movie has been updated!",
+      data: movie,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+// Delete a movie
+router.delete("/delete-movie/:movieId", async (req, res) => {
+  try {
+    await Movie.findByIdAndDelete(req.params.movieId);
+    res.send({
+      success: true,
+      message: "The movie has been deleted!",
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 module.exports = router;
