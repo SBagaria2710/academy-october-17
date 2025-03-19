@@ -5,6 +5,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import MovieForm from "./MovieForm";
 import { showLoading, hideLoading } from "../../redux/loaderSlice";
 import { getAllMovies } from "../../apicalls/movies";
+import DeleteMovieModal from "./MovieDelete";
 
 const movies = [
   {
@@ -47,7 +48,7 @@ function MovieList() {
     },
     {
       title: "Movie Name",
-      dataIndex: "name",
+      dataIndex: "movieName",
     },
     {
       title: "Description",
@@ -70,7 +71,31 @@ function MovieList() {
       dataIndex: "releaseDate",
     },
     {
-      title: "Actions",
+      title: "Action",
+      render: (text, data) => {
+        return (
+          <div>
+            <Button
+              onClick={() => {
+                setIsModalOpen(true);
+                setSelectedMovie(data);
+                setFormType("edit");
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              style={{ marginLeft: "4px" }}
+              onClick={() => {
+                setIsDeleteModalOpen(true);
+                setSelectedMovie(data);
+              }}
+            >
+              <DeleteOutlined />
+            </Button>
+          </div>
+        );
+      },
     },
   ];
 
@@ -110,6 +135,15 @@ function MovieList() {
           setIsModalOpen={setIsModalOpen}
           selectedMovie={selectedMovie}
           formType={formType}
+          setSelectedMovie={setSelectedMovie}
+          getData={getData}
+        />
+      )}
+      {isDeleteModalOpen && (
+        <DeleteMovieModal
+          isDeleteModalOpen={isDeleteModalOpen}
+          selectedMovie={selectedMovie}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
           setSelectedMovie={setSelectedMovie}
           getData={getData}
         />

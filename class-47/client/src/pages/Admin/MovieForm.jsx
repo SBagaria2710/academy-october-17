@@ -3,6 +3,8 @@ import { Modal, Col, Row, Form, Input, Select, Button, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useDispatch } from "react-redux";
 import moment from "moment";
+import { addMovie, updateMovie } from "../../apicalls/movies";
+import { hideLoading, showLoading } from "../../redux/loaderSlice";
 
 const MovieForm = ({
   setIsModalOpen,
@@ -13,8 +15,34 @@ const MovieForm = ({
 }) => {
   const dispatch = useDispatch();
 
-  const onFinish = (values) => {
-    console.log(values);
+  if (selectedMovie) {
+    selectedMovie.releaseDate = moment(selectedMovie.releaseDate).format(
+      "YYYY-MM-DD"
+    );
+  }
+
+  const onFinish = async (values) => {
+    try {
+      dispatch(showLoading());
+      let response = null;
+      if (formType === "add") {
+        response = await addMovie(values);
+      } else {
+        response = await updateMovie(selectedMovie._id, values);
+      }
+      if (response.success) {
+        getData();
+        message.success(response.message);
+        setIsModalOpen(false);
+      } else {
+        message.error(response.message);
+      }
+      setSelectedMovie(null);
+      dispatch(hideLoading());
+    } catch (err) {
+      dispatch(hideLoading());
+      message.error(err.message);
+    }
   };
 
   const handleCancel = () => {
@@ -34,7 +62,7 @@ const MovieForm = ({
       <Form layout="vertical" initialValues={selectedMovie} onFinish={onFinish}>
         <Row gutter={{ xs: 6, sm: 10, md: 12, lg: 16 }}>
           <Col span={24}>
-            <Form.Item label="Movie Name" name="title">
+            <Form.Item label="Movie Name" name="movieName">
               <Input placeholder="Enter the movie name" />
             </Form.Item>
           </Col>
