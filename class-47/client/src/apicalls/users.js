@@ -30,6 +30,8 @@ export const GetCurrentUser = async () => {
     });
     return response.data;
   } catch (err) {
-    return err;
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return null;
   }
 };

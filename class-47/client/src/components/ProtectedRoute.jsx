@@ -65,17 +65,20 @@ function ProtectedRoute({ children }) {
     },
   ];
 
+  const cleanUpAndRedirect = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const getValidUser = async () => {
     try {
+      let result;
       dispatch(showLoading());
       const response = await GetCurrentUser();
-      console.log(response);
       dispatch(setUser(response.data));
       dispatch(hideLoading());
-      // Hide Loader
     } catch (error) {
-      dispatch(setUser(null));
-      message.error(error.message);
+      message.error(error?.response?.data?.message || error.message);
     }
   };
 

@@ -7,7 +7,6 @@ const loaderSlice = createSlice({
   },
   reducers: {
     showLoading: (state) => {
-      console.log("Here");
       state.loading = true;
     },
     hideLoading: (state) => {
