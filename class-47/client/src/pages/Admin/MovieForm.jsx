@@ -46,7 +46,6 @@ const MovieForm = ({
   };
 
   const handleCancel = () => {
-    console.log("Here");
     setIsModalOpen(false);
     setSelectedMovie(null);
   };

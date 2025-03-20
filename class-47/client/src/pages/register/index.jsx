@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apicalls/users";
+import Radio from "antd/es/radio/radio";
 
 function Register() {
   const navigate = useNavigate();
@@ -83,6 +84,20 @@ function Register() {
                 >
                   Register
                 </Button>
+              </Form.Item>
+              <Form.Item
+                label="Register as a Partner"
+                htmlFor="role"
+                name="role"
+                className="d-block text-center"
+                initialValue={false}
+              >
+                <div style={{ display: "flex", justifyContent: "start" }}>
+                  <Radio.Group name="radiogroup" className="flex-start">
+                    <Radio value={"partner"}>Yes</Radio>
+                    <Radio value={"user"}>No</Radio>
+                  </Radio.Group>
+                </div>
               </Form.Item>
             </Form>
             <div>
