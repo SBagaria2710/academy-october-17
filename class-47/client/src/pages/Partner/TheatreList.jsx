@@ -6,6 +6,7 @@ import { Button, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import TheatreDelete from "./TheatreDelete";
 import TheatreModal from "./TheatreForm";
+import ShowModal from "./ShowModal";
 
 const TheatreList = () => {
   const { user } = useSelector((state) => state.user);
