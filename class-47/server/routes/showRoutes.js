@@ -76,7 +76,9 @@ router.get("/get-show-by-id/:showId", async (req, res) => {
     res.send({
       success: true,
       message: "All shows fetched",
+      data: show,
     });
+    console.log(show);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

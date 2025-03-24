@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./pages/Admin";
 import Profile from "./pages/Profile";
 import Movie from "./pages/Movie";
+import BookShow from "./pages/BookShow";
 
 function App() {
   return (
@@ -19,6 +20,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/book-show/:showId"
+            element={
+              <ProtectedRoute>
+                <BookShow />
               </ProtectedRoute>
             }
           />

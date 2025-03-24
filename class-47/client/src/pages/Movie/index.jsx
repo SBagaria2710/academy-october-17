@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getMovieById } from "../../apicalls/movies";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
@@ -11,7 +11,10 @@ import { getAllTheatresByMovie } from "../../apicalls/shows";
 const Movie = () => {
   const params = useParams();
   const [movie, setMovie] = useState();
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+  const [searchParams] = useSearchParams();
+  const [date, setDate] = useState(
+    moment(searchParams.get("date")).format("YYYY-MM-DD")
+  );
   const [theatres, setTheatres] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
