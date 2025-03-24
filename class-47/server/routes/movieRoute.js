@@ -1,6 +1,22 @@
 const router = require("express").Router();
 const Movie = require("../models/movieModel");
 
+router.get("/movie/:id", async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    res.send({
+      success: true,
+      message: "Movie fetched successfully!",
+      data: movie,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 // Add a movie
 router.post("/add-movie", async (req, res) => {
   try {

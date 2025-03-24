@@ -78,6 +78,9 @@ button {
 .gap-10 {
   gap: 10px;
 }
+.d-flex {
+  display: flex;
+}
 .justify-content-between {
   justify-content: space-between;
 }

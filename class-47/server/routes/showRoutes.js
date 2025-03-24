@@ -60,7 +60,7 @@ router.get("/get-all-theatres-by-movie/:movieId/:date", async (req, res) => {
     res.send({
       success: true,
       message: "All Shows fetched",
-      data: shows,
+      data: uniqueTheatres,
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
