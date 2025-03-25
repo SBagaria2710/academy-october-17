@@ -43,7 +43,7 @@ export const updateMovie = async (movieId, payload) => {
   }
 };
 
-// Update a movie
+// Delete a movie
 export const deleteMovie = async (movieId) => {
   try {
     const response = await axiosInstance.delete(

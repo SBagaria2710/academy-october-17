@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
 import { getShowById } from "../../apicalls/shows";
+import { makePayment, bookShow } from "../../apicalls/booking";
 import { useNavigate, useParams } from "react-router-dom";
 import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
 
 const BookShow = () => {
   // Redux state and hooks
@@ -37,8 +39,8 @@ const BookShow = () => {
   // Function to generate seat layout dynamically
   const getSeats = () => {
     let columns = 12; // Number of columns for seating arrangement
-    let totalSeats = 120; // Total number of seats
-    let rows = totalSeats / columns; // Calculating number of rows
+    let totalSeats = show.totalSeats; // Total number of seats
+    let rows = Math.ceil(totalSeats / columns); // Calculating number of rows
 
     return (
       <div className="d-flex flex-column align-items-center">
@@ -108,6 +110,44 @@ const BookShow = () => {
     );
   };
 
+  const bookShow = async (transactionId) => {
+    try {
+      dispatch(showLoading());
+      const response = await bookShow({
+        show: params.showId,
+        transactionId,
+        seats: selectedSeats,
+        user: user._id,
+      });
+
+      if (response.success) {
+        navigate("/profile");
+      } else {
+        console.error("Something went wrong", response);
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(hideLoading());
+    }
+  };
+
+  const onToken = async (token) => {
+    try {
+      dispatch(showLoading());
+      const response = await makePayment({
+        token: token,
+        amount: selectedSeats.length * show.ticketPrice,
+      });
+      if (response.success) {
+        bookShow(response.data);
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(hideLoading());
+    }
+  };
+
   // Effect hook to fetch data on component mount
   useEffect(() => {
     getData();
@@ -151,6 +191,20 @@ const BookShow = () => {
               style={{ width: "100%" }}
             >
               {getSeats()} {/* Rendering dynamic seat layout */}
+              {selectedSeats.length > 0 && (
+                <StripeCheckout
+                  token={onToken}
+                  billingAddress
+                  amount={selectedSeats.length * show.ticketPrice}
+                  stripeKey="pk_test_51R6BX1KpJJuQX1KFiD0FRu7vdgEJcL3eGG7Ea91oownuM9GVrEy7g7TdxucxLFGjAvA4Ittq4lLHslo9HSO1XPTH00FVwnyC90"
+                >
+                  <div className="max-width-600 mx-auto">
+                    <Button type="primary" shape="round" size="large" block>
+                      Pay Now
+                    </Button>
+                  </div>
+                </StripeCheckout>
+              )}
             </Card>
           </Col>
         </Row>

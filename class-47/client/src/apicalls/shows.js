@@ -35,7 +35,7 @@ export const getShowsByTheatre = async (theatreId) => {
 
 export const deleteShow = async (showId) => {
   try {
-    const response = await axiosInstance.post(
+    const response = await axiosInstance.delete(
       `/api/shows/delete-show/${showId}`
     );
     return response.data;
