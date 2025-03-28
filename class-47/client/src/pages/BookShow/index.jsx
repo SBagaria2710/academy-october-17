@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
 import { getShowById } from "../../apicalls/shows";
-import { makePayment, bookShow } from "../../apicalls/booking";
+import { makePayment, bookShow } from "../../apicalls/bookings";
 import { useNavigate, useParams } from "react-router-dom";
 import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
@@ -110,7 +110,7 @@ const BookShow = () => {
     );
   };
 
-  const bookShow = async (transactionId) => {
+  const bookSeatForUser = async (transactionId) => {
     try {
       dispatch(showLoading());
       const response = await bookShow({
@@ -139,7 +139,7 @@ const BookShow = () => {
         amount: selectedSeats.length * show.ticketPrice,
       });
       if (response.success) {
-        bookShow(response.data);
+        bookSeatForUser(response.data);
         console.log(response);
       }
     } catch (err) {

@@ -33,3 +33,16 @@ export const bookShow = async (values) => {
     console.error(err);
   }
 };
+
+export const getAllBookings = async () => {
+  try {
+    const response = await axiosInstance.get("/api/booking/get-all-bookings", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    return err.response;
+  }
+};
