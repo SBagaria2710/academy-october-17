@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const path = require("path");
 
 require("dotenv").config();
 require("./config/db");
@@ -21,17 +20,6 @@ app.use("/api/theatres", theatreRoutes);
 app.use("/api/shows", showRoutes);
 app.use("/api/booking", bookingRoutes);
 
-// app.get("/", (req, res) => {
-//   res.send("Hello, World!");
-// });
-
 app.listen(3001, () => {
   console.log("Server is running");
-});
-
-const publicPath = path.join(__dirname, "../client/dist");
-
-app.use(express.static(publicPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
 });
