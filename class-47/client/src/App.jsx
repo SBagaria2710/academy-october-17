@@ -9,6 +9,8 @@ import Admin from "./pages/Admin";
 import Profile from "./pages/Profile";
 import Movie from "./pages/Movie";
 import BookShow from "./pages/BookShow";
+import Forget from "./pages/ForgotPass";
+import Reset from "./pages/Reset";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
           <Route
             path="/partner"
             element={

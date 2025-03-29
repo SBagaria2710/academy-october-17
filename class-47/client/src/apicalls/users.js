@@ -35,3 +35,29 @@ export const GetCurrentUser = async () => {
     return null;
   }
 };
+
+// Forgot Password
+export const ForgetPassword = async (value) => {
+  try {
+    const response = await axiosInstance.patch(
+      "api/users/forgotpassword",
+      value
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Reset Password
+export const ResetPassword = async (value) => {
+  try {
+    const response = await axiosInstance.patch(
+      "api/users/resetpassword",
+      value
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
