@@ -3,6 +3,7 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const path = require("path");
 const app = express();
 
 require("dotenv").config();
@@ -57,4 +58,10 @@ app.use("/api/booking", bookingRoutes);
 
 app.listen(3001, () => {
   console.log("Server is running");
+});
+
+const publicPath = path.join(__dirname, "../client/dist");
+app.use(express.static(publicPath));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
 });
